@@ -7,14 +7,32 @@
 //
 
 import UIKit
+import Firebase
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
+    var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        if Auth.auth().currentUser != nil {
+         // User is signed in.
+         print("true")
+            let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let homePage = mainStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+            self.window?.rootViewController = homePage
+        } else {
+          // No user is signed in.
+         // ...
+            let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let homePage = mainStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+            self.window?.rootViewController = homePage
+            }
+
+      
         return true
     }
 
@@ -33,5 +51,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-}
 
+}
